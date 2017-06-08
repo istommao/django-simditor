@@ -1,5 +1,6 @@
-# django-simditor
-django simditor
+Django Simditor
+===============
+
 
 Installation
 ------------
