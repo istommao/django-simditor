@@ -9,4 +9,5 @@ Installation
 
 **Add `simditor` to your `INSTALLED_APPS` setting.**
 
-![]('resources/demo.png')
+
+![](resources/demo.png)
