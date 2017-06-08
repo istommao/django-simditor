@@ -4,7 +4,7 @@ django simditor
 Installation
 ------------
 
-    pip install django-Simditor
+    pip install django-simditor
 
 **Add `simditor` to your `INSTALLED_APPS` setting.**
 

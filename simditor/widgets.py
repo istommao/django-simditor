@@ -60,10 +60,12 @@ class SimditorWidget(forms.Textarea):
         js = ()
         jquery_url = getattr(settings, 'SIMDITOR_JQUERY_URL', None)
         if jquery_url:
-            js += (jquery_url, )
+            js += (jquery_url,)
         try:
             js += (
                 settings.STATIC_URL + 'simditor/scripts/simditor.main.min.js',
+                settings.STATIC_URL + 'simditor/scripts/marked.min.js',
+                settings.STATIC_URL + 'simditor/scripts/simditor.ext.min.js',
                 settings.STATIC_URL + 'simditor/simditor-init.js',
             )
         except AttributeError:
