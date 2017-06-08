@@ -8,6 +8,16 @@
 
     var $ = jQuery || djangoJQuery;
     $(function() {
-
+        var editor = new Simditor({
+            textarea: $('#editor'),
+            upload: {
+                url: '/',
+                fileKey: 'upload_file',
+            },
+            cleanPaste: true,
+            tabIndent: true,
+            pasteImage: true,
+            toolbar: toolbar
+        });
     });
-});
+})();

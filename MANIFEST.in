@@ -1,0 +1,4 @@
+include LICENSE
+include intro.rst
+recursive-include simditor/static *
+recursive-include simditor/templates *

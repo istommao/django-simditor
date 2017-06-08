@@ -4,22 +4,36 @@
 
 from setuptools import setup, find_packages
 
-VERSION = '0.0.2'
+VERSION = '0.0.4'
 LONG_DESCRIPTION = open('intro.rst', 'r').read()
+
+INSTALL_REQUIRES = [
+    'Django',
+]
 
 setup(
     name='django-simditor',
-    verson=VERSION,
+    version=VERSION,
     description='Django admin Simditor integration.',
     long_description=LONG_DESCRIPTION,
-    author='silence',
+    author='Silence',
     author_email='istommao@gmail.com',
     url='https://github.com/istommao/django-simditor',
     zip_safe=False,
-    install_requires=[
-        'Django',
-    ],
-    packages=find_packages(exclude=["*.demo"]),
+    install_requires=INSTALL_REQUIRES,
+    packages=find_packages(),
+    keywords='Django admin Simditor integration!',
     include_package_data=True,
-    keywords='Django admin Simditor integration!'
+    classifiers=[
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.3",
+        "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+        "Framework :: Django",
+        "Intended Audience :: Developers",
+        "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+    ]
 )

@@ -51,13 +51,19 @@ class SimditorWidget(forms.Textarea):
     """
     class Media:
         """Media."""
+        css = {
+            'all': (
+                settings.STATIC_URL + 'simditor/styles/simditor.main.min.css',
+            )
+        }
+
         js = ()
         jquery_url = getattr(settings, 'SIMDITOR_JQUERY_URL', None)
         if jquery_url:
             js += (jquery_url, )
         try:
             js += (
-                settings.STATIC_URL + 'simditor/simditor/simditor.js',
+                settings.STATIC_URL + 'simditor/scripts/simditor.main.min.js',
                 settings.STATIC_URL + 'simditor/simditor-init.js',
             )
         except AttributeError:
@@ -103,10 +109,20 @@ class SimditorWidget(forms.Textarea):
 
         self.external_plugin_resources = external_plugin_resources or []
 
+    def build_attrs(self, base_attrs, extra_attrs=None, **kwargs):
+        """
+        Helper function for building an attribute dictionary.
+        This is combination of the same method from Django<=1.10 and Django1.11
+        """
+        attrs = dict(base_attrs, **kwargs)
+        if extra_attrs:
+            attrs.update(extra_attrs)
+        return attrs
+
     def render(self, name, value, attrs=None):
         if value is None:
             value = ''
-        final_attrs = self.build_attrs(attrs, name=name)
+        final_attrs = self.build_attrs(self.attrs, attrs, name=name)
 
         external_plugin_resources = [[force_text(a), force_text(b), force_text(c)]
                                      for a, b, c in self.external_plugin_resources]
