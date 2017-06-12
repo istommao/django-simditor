@@ -8,19 +8,24 @@
 
     var $ = jQuery || djangoJQuery;
     $(function() {
-        var toolbar = ['title', 'bold', 'italic', 'underline', 'strikethrough', 'fontScale', 'color', '|',
-                       'ol', 'ul', 'blockquote', 'code', 'table', '|', 'link', 'image', 'hr', '|',
-                       'indent', 'outdent', 'alignment',  'checklist', 'markdown', 'fullscreen'];
-        var editor = new Simditor({
-            textarea: $('#editor'),
-            upload: {
-                url: '/',
-                fileKey: 'upload_file',
-            },
-            cleanPaste: true,
-            tabIndent: true,
-            pasteImage: true,
-            toolbar: toolbar
-        });
+
+        initialiseSimditor();
+        function initialiseSimditor() {
+            $('textarea[data-type=simditortype]').each(function() {
+                if($(this).data('processed') == "0" && $(this).attr('id').indexOf('__prefix__') == -1){
+                    $(this).data('processed', "1");
+                    var dataConfig = $(this).data('config');
+                    new Simditor({
+                        textarea: $(this),
+                        upload: dataConfig.upload,
+                        cleanPaste: dataConfig.cleanPaste,
+                        tabIndent: dataConfig.tabIndent,
+                        pasteImage: dataConfig.pasteImage,
+                        toolbar: dataConfig.toolbar
+                    });
+                }
+            });
+        }
+
     });
 })();

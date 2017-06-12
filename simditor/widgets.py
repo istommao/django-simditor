@@ -36,7 +36,6 @@ DEFAULT_CONFIG = {
     'cleanPaste': True,
     'tabIndent': True,
     'pasteImage': True,
-    'textarea': '#editor',
     'upload': {
         'url': '/',
         'fileKey': 'file'
@@ -66,7 +65,7 @@ class SimditorWidget(forms.Textarea):
                 settings.STATIC_URL + 'simditor/scripts/simditor.main.min.js',
                 settings.STATIC_URL + 'simditor/scripts/marked.min.js',
                 settings.STATIC_URL + 'simditor/scripts/simditor.ext.min.js',
-                settings.STATIC_URL + 'simditor/simditor-init.js',
+                settings.STATIC_URL + 'simditor/simditor-init.js'
             )
         except AttributeError:
             raise ImproperlyConfigured("django-simditor requires \
@@ -75,8 +74,7 @@ class SimditorWidget(forms.Textarea):
                     uploaded media). Make sure to use a trailing slash: \
                     SIMDITOR_MEDIA_PREFIX = '/media/simditor/'")
 
-    def __init__(self, config_name='default', extra_plugins=None,
-                 external_plugin_resources=None, *args, **kwargs):
+    def __init__(self, config_name='default', *args, **kwargs):
         super(SimditorWidget, self).__init__(*args, **kwargs)
         # Setup config from defaults.
         self.config = DEFAULT_CONFIG.copy()
@@ -104,13 +102,6 @@ class SimditorWidget(forms.Textarea):
                 raise ImproperlyConfigured(
                     'CKEDITOR_CONFIGS setting must be a dictionary type.')
 
-        extra_plugins = extra_plugins or []
-
-        if extra_plugins:
-            self.config['extraPlugins'] = ','.join(extra_plugins)
-
-        self.external_plugin_resources = external_plugin_resources or []
-
     def build_attrs(self, base_attrs, extra_attrs=None, **kwargs):
         """
         Helper function for building an attribute dictionary.
@@ -126,12 +117,8 @@ class SimditorWidget(forms.Textarea):
             value = ''
         final_attrs = self.build_attrs(self.attrs, attrs, name=name)
 
-        external_plugin_resources = [[force_text(a), force_text(b), force_text(c)]
-                                     for a, b, c in self.external_plugin_resources]
-
         return mark_safe(render_to_string('simditor/widget.html', {
             'value': conditional_escape(force_text(value)),
             'id': final_attrs['id'],
-            'config': JSON_ENCODE(self.config),
-            'external_plugin_resources': JSON_ENCODE(external_plugin_resources)
+            'config': JSON_ENCODE(self.config)
         }))
