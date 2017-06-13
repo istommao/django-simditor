@@ -129,3 +129,13 @@ MEDIA_ROOT = os.path.join(tempfile.gettempdir(), 'sm_media')
 SIMDITOR_UPLOAD_PATH = 'uploads/'
 SIMDITOR_IMAGE_BACKEND = 'pillow'
 SIMDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
+
+# SIMDITOR_TOOLBAR = [
+#     'title', 'bold', 'italic', 'underline', 'strikethrough', 'fontScale',
+#     'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|', 'link',
+#     'image', 'hr', '|', 'indent', 'outdent', 'alignment'
+# ]
+
+# SIMDITOR_CONFIGS = {
+#     'toolbar': SIMDITOR_TOOLBAR,
+# }

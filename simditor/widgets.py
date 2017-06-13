@@ -24,11 +24,18 @@ class LazyEncoder(DjangoJSONEncoder):
 
 JSON_ENCODE = LazyEncoder().encode
 
-DEFAULT_TOOLBAR = [
+
+FULL_TOOLBAR = [
     'title', 'bold', 'italic', 'underline', 'strikethrough', 'fontScale',
     'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|', 'link',
     'image', 'hr', '|', 'indent', 'outdent', 'alignment', 'checklist',
     'markdown', 'fullscreen'
+]
+
+DEFAULT_TOOLBAR = [
+    'title', 'bold', 'italic', 'underline', 'strikethrough', 'fontScale',
+    'color', '|', 'ol', 'ul', 'blockquote', 'table', '|', 'link',
+    'image', 'hr', '|', 'indent', 'outdent', 'alignment'
 ]
 
 DEFAULT_CONFIG = {
@@ -74,7 +81,7 @@ class SimditorWidget(forms.Textarea):
                     uploaded media). Make sure to use a trailing slash: \
                     SIMDITOR_MEDIA_PREFIX = '/media/simditor/'")
 
-    def __init__(self, config_name='default', *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(SimditorWidget, self).__init__(*args, **kwargs)
         # Setup config from defaults.
         self.config = DEFAULT_CONFIG.copy()
@@ -83,24 +90,10 @@ class SimditorWidget(forms.Textarea):
         configs = getattr(settings, 'SIMDITOR_CONFIGS', None)
         if configs:
             if isinstance(configs, dict):
-                # Make sure the config_name exists.
-                if config_name in configs:
-                    config = configs[config_name]
-                    # Make sure the configuration is a dictionary.
-                    if not isinstance(config, dict):
-                        raise ImproperlyConfigured(
-                            'CKEDITOR_CONFIGS["%s"] setting must be a '
-                            'dictionary type.' % config_name
-                        )
-                    # Override defaults with settings config.
-                    self.config.update(config)
-                else:
-                    raise ImproperlyConfigured("No configuration named '%s' \
-                            found in your CKEDITOR_CONFIGS setting." %
-                                               config_name)
+                self.config.update(configs)
             else:
                 raise ImproperlyConfigured(
-                    'CKEDITOR_CONFIGS setting must be a dictionary type.')
+                    'SIMDITOR_CONFIGS setting must be a dictionary type.')
 
     def build_attrs(self, base_attrs, extra_attrs=None, **kwargs):
         """
