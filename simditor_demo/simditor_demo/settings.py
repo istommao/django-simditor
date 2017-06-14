@@ -133,7 +133,8 @@ SIMDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.j
 SIMDITOR_TOOLBAR = [
     'title', 'bold', 'italic', 'underline', 'strikethrough', 'fontScale',
     'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|', 'link',
-    'image', 'hr', '|', 'indent', 'outdent', 'alignment'
+    'image', 'hr', '|', 'indent', 'outdent', 'alignment', 'fullscreen',
+    'markdown'
 ]
 
 SIMDITOR_CONFIGS = {

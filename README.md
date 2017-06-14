@@ -19,10 +19,19 @@ class Post(models.Model):
     content = RichTextField()
 ```
 
+**Markdown**
 
-![](resources/demo.png)
+![](resources/markdown.gif)
 
 **Image upload config**
+
+*drop image*
+
+![](resources/dropimage.gif)
+
+*clipboard image*
+
+![](resources/clipboardimage.gif)
 
 ```bash
 pip install pillow
@@ -48,7 +57,7 @@ SIMDITOR_TOOLBAR = [
     'title', 'bold', 'italic', 'underline', 'strikethrough', 'fontScale',
     'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|', 'link',
     'image', 'hr', '|', 'indent', 'outdent', 'alignment', 'fullscreen',
-    'markdown
+    'markdown'
 ]
 
 SIMDITOR_CONFIGS = {
