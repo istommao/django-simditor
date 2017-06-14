@@ -12,6 +12,13 @@ from django.utils.safestring import mark_safe
 from django.utils.html import conditional_escape
 from django.utils.functional import Promise
 
+try:
+    # Django >=1.7
+    from django.forms.utils import flatatt
+except ImportError:
+    # Django <1.7
+    from django.forms.util import flatatt        # pylint disable=E0611, E0401
+
 
 class LazyEncoder(DjangoJSONEncoder):
     """LazyEncoder."""
@@ -111,6 +118,7 @@ class SimditorWidget(forms.Textarea):
         final_attrs = self.build_attrs(self.attrs, attrs, name=name)
 
         return mark_safe(render_to_string('simditor/widget.html', {
+            'final_attrs': flatatt(final_attrs),
             'value': conditional_escape(force_text(value)),
             'id': final_attrs['id'],
             'config': JSON_ENCODE(self.config)

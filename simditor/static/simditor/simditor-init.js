@@ -12,7 +12,8 @@
         initialiseSimditor();
         function initialiseSimditor() {
             $('textarea[data-type=simditortype]').each(function() {
-                if($(this).data('processed') == "0" && $(this).attr('id').indexOf('__prefix__') == -1){
+
+                if($(this).data('processed') == "0" && $(this).attr('data-id').indexOf('__prefix__') == -1){
                     $(this).data('processed', "1");
                     var dataConfig = $(this).data('config');
                     new Simditor({
