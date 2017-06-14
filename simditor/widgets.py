@@ -70,10 +70,8 @@ class SimditorWidget(forms.Textarea):
             )
         }
 
-        js = ()
-        jquery_url = getattr(settings, 'SIMDITOR_JQUERY_URL', None)
-        if jquery_url:
-            js += (jquery_url,)
+        jquery_url = settings.STATIC_URL + 'simditor/scripts/jquery.min.js'
+        js = (jquery_url,)
         try:
             js += (
                 settings.STATIC_URL + 'simditor/scripts/simditor.main.min.js',
