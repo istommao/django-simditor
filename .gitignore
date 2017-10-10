@@ -102,3 +102,5 @@ ENV/
 
 .DS_Store
 db.sqlite3
+
+simditor/static/

@@ -123,7 +123,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-STATIC_ROOT = os.path.join(tempfile.gettempdir(), 'sm_static')
+# STATIC_ROOT = os.path.join(tempfile.gettempdir(), 'sm_static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 MEDIA_ROOT = os.path.join(tempfile.gettempdir(), 'sm_media')
 
 SIMDITOR_UPLOAD_PATH = 'uploads/'
@@ -134,7 +136,7 @@ SIMDITOR_TOOLBAR = [
     'title', 'bold', 'italic', 'underline', 'strikethrough', 'fontScale',
     'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|', 'link',
     'image', 'hr', '|', 'indent', 'outdent', 'alignment', 'fullscreen',
-    'markdown'
+    'markdown', 'emoji'
 ]
 
 SIMDITOR_CONFIGS = {
@@ -142,5 +144,8 @@ SIMDITOR_CONFIGS = {
     'upload': {
         'url': '/simditor/upload/',
         'fileKey': 'upload'
+    },
+    'emoji': {
+        'imagePath': '/static/simditor/images/emoji/'
     }
 }

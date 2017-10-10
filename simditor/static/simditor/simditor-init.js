@@ -22,7 +22,8 @@
                         cleanPaste: dataConfig.cleanPaste,
                         tabIndent: dataConfig.tabIndent,
                         pasteImage: dataConfig.pasteImage,
-                        toolbar: dataConfig.toolbar
+                        toolbar: dataConfig.toolbar,
+                        emoji: dataConfig.emoji
                     });
                 }
             });

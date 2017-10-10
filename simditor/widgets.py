@@ -29,6 +29,7 @@ class LazyEncoder(DjangoJSONEncoder):
             return force_text(obj)
         return super(LazyEncoder, self).default(obj)
 
+
 JSON_ENCODE = LazyEncoder().encode
 
 
@@ -67,6 +68,7 @@ class SimditorWidget(forms.Textarea):
         css = {
             'all': (
                 settings.STATIC_URL + 'simditor/styles/simditor.main.min.css',
+                settings.STATIC_URL + 'simditor/styles/simditor-emoji.css',
             )
         }
 
@@ -77,6 +79,7 @@ class SimditorWidget(forms.Textarea):
                 settings.STATIC_URL + 'simditor/scripts/simditor.main.min.js',
                 settings.STATIC_URL + 'simditor/scripts/marked.min.js',
                 settings.STATIC_URL + 'simditor/scripts/simditor.ext.min.js',
+                settings.STATIC_URL + 'simditor/scripts/simditor-emoji.js',
                 settings.STATIC_URL + 'simditor/simditor-init.js'
             )
         except AttributeError:
