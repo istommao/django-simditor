@@ -72,7 +72,7 @@ SIMDITOR_TOOLBAR = [
     'title', 'bold', 'italic', 'underline', 'strikethrough', 'fontScale',
     'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|', 'link',
     'image', 'hr', '|', 'indent', 'outdent', 'alignment', 'fullscreen',
-    'markdown'
+    'markdown', 'emoji'
 ]
 
 SIMDITOR_CONFIGS = {
@@ -80,6 +80,9 @@ SIMDITOR_CONFIGS = {
     'upload': {
         'url': '/simditor/upload/',
         'fileKey': 'upload'
+    },
+    'emoji': {
+        'imagePath': '/static/simditor/images/emoji/'
     }
 }
 ```
