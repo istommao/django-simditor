@@ -21,7 +21,7 @@ class Post(models.Model):
 
 **emoji**
 
-![](emoji.png)
+![](resources/emoji.png)
 
 **Markdown**
 
