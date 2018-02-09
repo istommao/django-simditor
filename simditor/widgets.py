@@ -65,23 +65,33 @@ class SimditorWidget(forms.Textarea):
     """
     class Media:
         """Media."""
-        css = {
-            'all': (
+
+        if 'emoji' in settings.SIMDITOR_TOOLBAR:
+            css_tuple = (
                 settings.STATIC_URL + 'simditor/styles/simditor.main.min.css',
                 settings.STATIC_URL + 'simditor/styles/simditor-emoji.css',
             )
-        }
+        else:
+            css_tuple = (settings.STATIC_URL +
+                         'simditor/styles/simditor.main.min.css',)
+
+        css = {'all': css_tuple}
 
         jquery_url = settings.STATIC_URL + 'simditor/scripts/jquery.min.js'
-        js = (jquery_url,)
+        js = (jquery_url, settings.STATIC_URL +
+              'simditor/scripts/simditor.main.min.js',)
+
+        if 'markdown' in settings.SIMDITOR_TOOLBAR:
+            js += (settings.STATIC_URL + 'simditor/scripts/marked.min.js',)
+
         try:
             js += (
-                settings.STATIC_URL + 'simditor/scripts/simditor.main.min.js',
-                settings.STATIC_URL + 'simditor/scripts/marked.min.js',
                 settings.STATIC_URL + 'simditor/scripts/simditor.ext.min.js',
-                settings.STATIC_URL + 'simditor/scripts/simditor-emoji.js',
-                settings.STATIC_URL + 'simditor/simditor-init.js'
             )
+            if 'emoji' in settings.SIMDITOR_TOOLBAR:
+                js += (settings.STATIC_URL + 'simditor/scripts/simditor-emoji.js',)
+
+            js += (settings.STATIC_URL + 'simditor/simditor-init.js',)
         except AttributeError:
             raise ImproperlyConfigured("django-simditor requires \
                      SIMDITOR_MEDIA_PREFIX setting. This setting specifies a \

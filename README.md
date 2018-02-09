@@ -19,6 +19,10 @@ class Post(models.Model):
     content = RichTextField()
 ```
 
+**emoji**
+
+![](emoji.png)
+
 **Markdown**
 
 ![](resources/markdown.gif)
