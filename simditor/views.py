@@ -48,7 +48,11 @@ class ImageUploadView(generic.View):
 
     def post(self, request, **kwargs):
         """Post."""
-        uploaded_file = request.FILES['upload']
+        upload_config = settings.SIMDITOR_CONFIGS.get(
+            'upload', {'fileKey': 'upload'})
+        filekey = upload_config.get('fileKey', 'upload')
+
+        uploaded_file = request.FILES.get(filekey, 'upload')
 
         backend = image_processing.get_backend()
 

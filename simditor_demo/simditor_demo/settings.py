@@ -135,8 +135,8 @@ SIMDITOR_IMAGE_BACKEND = 'pillow'
 SIMDITOR_TOOLBAR = [
     'title', 'bold', 'italic', 'underline', 'strikethrough', 'fontScale',
     'color', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|', 'link',
-    'image', 'hr', '|', 'indent', 'outdent', 'alignment', 'fullscreen',
-    'markdown', 'emoji'
+    'image', 'hr', '|', 'indent', 'outdent', 'alignment',
+    'markdown', 'emoji', 'checklist', 'fullscreen'
 ]
 
 SIMDITOR_CONFIGS = {

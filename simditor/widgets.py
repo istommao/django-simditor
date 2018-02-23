@@ -66,30 +66,50 @@ class SimditorWidget(forms.Textarea):
     class Media:
         """Media."""
 
+        css_list = [
+            'simditor/styles/simditor.min.css'
+        ]
+
         if 'emoji' in settings.SIMDITOR_TOOLBAR:
-            css_tuple = (
-                settings.STATIC_URL + 'simditor/styles/simditor.main.min.css',
-                settings.STATIC_URL + 'simditor/styles/simditor-emoji.css',
-            )
-        else:
-            css_tuple = (settings.STATIC_URL +
-                         'simditor/styles/simditor.main.min.css',)
+            css_list.append('simditor/styles/simditor-emoji.css')
 
-        css = {'all': css_tuple}
+        if 'fullscreen' in settings.SIMDITOR_TOOLBAR:
+            css_list.append('simditor/styles/simditor-fullscreen.min.css')
 
-        jquery_url = settings.STATIC_URL + 'simditor/scripts/jquery.min.js'
-        js = (jquery_url, settings.STATIC_URL +
-              'simditor/scripts/simditor.main.min.js',)
+        if 'checklist' in settings.SIMDITOR_TOOLBAR:
+            css_list.append('simditor/styles/simditor-checklist.min.css')
 
         if 'markdown' in settings.SIMDITOR_TOOLBAR:
-            js += (settings.STATIC_URL + 'simditor/scripts/marked.min.js',)
+            css_list.append('simditor/styles/simditor-markdown.min.css')
+
+        css = {'all': tuple(settings.STATIC_URL + url for url in css_list)}
+
+        jquery_list = ['simditor/scripts/jquery.min.js',
+                       'simditor/scripts/module.min.js',
+                       'simditor/scripts/hotkeys.min.js',
+                       'simditor/scripts/uploader.min.js',
+                       'simditor/scripts/simditor.min.js']
+
+        if 'fullscreen' in settings.SIMDITOR_TOOLBAR:
+            jquery_list.append('simditor/scripts/simditor-fullscreen.min.js')
+
+        if 'checklist' in settings.SIMDITOR_TOOLBAR:
+            jquery_list.append('simditor/scripts/simditor-checklist.min.js')
+
+        if 'markdown' in settings.SIMDITOR_TOOLBAR:
+            jquery_list.append('simditor/scripts/marked.min.js')
+            jquery_list.append('simditor/scripts/to-markdown.min.js')
+            jquery_list.append('simditor/scripts/simditor-markdown.min.js')
+
+        if 'image' in settings.SIMDITOR_TOOLBAR:
+            jquery_list.append('simditor/scripts/simditor-dropzone.min.js')
+
+        if 'emoji' in settings.SIMDITOR_TOOLBAR:
+            jquery_list.append('simditor/scripts/simditor-emoji.js')
+
+        js = tuple(settings.STATIC_URL + url for url in jquery_list)
 
         try:
-            js += (
-                settings.STATIC_URL + 'simditor/scripts/simditor.ext.min.js',
-            )
-            if 'emoji' in settings.SIMDITOR_TOOLBAR:
-                js += (settings.STATIC_URL + 'simditor/scripts/simditor-emoji.js',)
 
             js += (settings.STATIC_URL + 'simditor/simditor-init.js',)
         except AttributeError:
