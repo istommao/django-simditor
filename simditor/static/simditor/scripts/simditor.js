@@ -1921,6 +1921,9 @@ Toolbar = (function(superClass) {
           _this.wrapper.width(_this.wrapper.outerWidth());
           _this.wrapper.css('left', _this.editor.util.os.mobile ? _this.wrapper.position().left : _this.wrapper.offset().left);
           _this.wrapper.css('position', '');
+
+          _this.editor.wrapper.width(_this.wrapper.outerWidth());
+
           toolbarHeight = _this.wrapper.outerHeight();
           _this.editor.placeholderEl.css('top', toolbarHeight);
           return true;
