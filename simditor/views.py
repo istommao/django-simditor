@@ -66,6 +66,8 @@ class ImageUploadView(generic.View):
 
         saved_path = self._save_file(request, uploaded_file)
         url = utils.get_media_url(saved_path)
+        is_api = settings.SIMDITOR_CONFIGS.get('is_api', False)
+        url = request.META.get('HTTP_ORIGIN') + url if is_api else url
 
         retdata = {'file_path': url, 'success': True,
                    'msg': '上传成功!'}
