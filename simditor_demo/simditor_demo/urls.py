@@ -18,8 +18,11 @@ from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
 
+from app.views import IndexView
+
 # pylint disable=C0103
 urlpatterns = [
+    url(r'^', IndexView.as_view(), name='simditor-form'),
     url(r'^admin/', admin.site.urls),
     url(r'^simditor/', include('simditor.urls'))
 ]
