@@ -11,6 +11,7 @@ from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
 from django.utils.html import conditional_escape
 from django.utils.functional import Promise
+from django.forms.widgets import get_default_renderer
 
 try:
     # Django >=1.7
@@ -143,12 +144,15 @@ class SimditorWidget(forms.Textarea):
             attrs.update(extra_attrs)
         return attrs
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
+        if renderer is None:
+            renderer = get_default_renderer()
+
         if value is None:
             value = ''
         final_attrs = self.build_attrs(self.attrs, attrs, name=name)
 
-        return mark_safe(render_to_string('simditor/widget.html', {
+        return mark_safe(renderer.render('simditor/widget.html', {
             'final_attrs': flatatt(final_attrs),
             'value': conditional_escape(force_text(value)),
             'id': final_attrs['id'],

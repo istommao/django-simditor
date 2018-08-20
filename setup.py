@@ -4,7 +4,7 @@
 
 from setuptools import setup, find_packages
 
-VERSION = '0.0.10'
+VERSION = '0.0.11'
 LONG_DESCRIPTION = open('intro.rst', 'r').read()
 
 INSTALL_REQUIRES = [
