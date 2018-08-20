@@ -4,7 +4,7 @@
 
 from setuptools import setup, find_packages
 
-VERSION = '0.0.11'
+VERSION = '0.0.12'
 LONG_DESCRIPTION = open('intro.rst', 'r').read()
 
 INSTALL_REQUIRES = [
@@ -21,7 +21,7 @@ setup(
     url='https://github.com/istommao/django-simditor',
     zip_safe=False,
     install_requires=INSTALL_REQUIRES,
-    packages=find_packages(),
+    packages=find_packages(exclude=[".DS_Store"]),
     keywords='Django admin Simditor integration!',
     include_package_data=True,
     classifiers=[

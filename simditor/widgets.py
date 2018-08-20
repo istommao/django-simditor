@@ -11,7 +11,13 @@ from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
 from django.utils.html import conditional_escape
 from django.utils.functional import Promise
-from django.forms.widgets import get_default_renderer
+
+try:
+    # Django >=2.1
+    from django.forms.widgets import get_default_renderer
+    IS_NEW_WIDGET = True
+except ImportError:
+    IS_NEW_WIDGET = False
 
 try:
     # Django >=1.7
@@ -145,16 +151,20 @@ class SimditorWidget(forms.Textarea):
         return attrs
 
     def render(self, name, value, attrs=None, renderer=None):
-        if renderer is None:
-            renderer = get_default_renderer()
-
         if value is None:
             value = ''
         final_attrs = self.build_attrs(self.attrs, attrs, name=name)
 
-        return mark_safe(renderer.render('simditor/widget.html', {
+        params = ('simditor/widget.html', {
             'final_attrs': flatatt(final_attrs),
             'value': conditional_escape(force_text(value)),
             'id': final_attrs['id'],
             'config': JSON_ENCODE(self.config)
-        }))
+        })
+
+        if renderer is None and IS_NEW_WIDGET:
+            renderer = get_default_renderer()
+
+        data = renderer.render(*params) if IS_NEW_WIDGET else render_to_string(*params)
+
+        return mark_safe(data)
