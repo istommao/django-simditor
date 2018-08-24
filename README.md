@@ -86,7 +86,7 @@ SIMDITOR_CONFIGS = {
 
 ## without django admin demo
 
-![](without_admin.gif)
+![](./resources/without_admin.gif)
 
 ```python
 from django.views import generic
