@@ -17,14 +17,29 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.views import generic
+from django.views.decorators.csrf import csrf_exempt
 
 from app.views import IndexView
 
+from simditor.views import upload_handler
+
+
+class ImageUploadView(generic.View):
+    """ImageUploadView."""
+
+    http_method_names = ['post']
+
+    def post(self, request, **kwargs):
+        """Post."""
+        return upload_handler(request)
+
+
 # pylint disable=C0103
 urlpatterns = [
-    url(r'^', IndexView.as_view(), name='simditor-form'),
+    url(r'^$', IndexView.as_view(), name='simditor-form'),
     url(r'^admin/', admin.site.urls),
-    url(r'^simditor/', include('simditor.urls'))
+    url(r'^simditor/upload', csrf_exempt(ImageUploadView.as_view())),
 ]
 
 urlpatterns += static(

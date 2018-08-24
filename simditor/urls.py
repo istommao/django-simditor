@@ -9,7 +9,14 @@ from django.contrib.admin.views.decorators import staff_member_required
 
 from . import views
 
-if django.VERSION >= (1, 8):
+if django.VERSION >= (2, 0):
+    # pylint disable=C0103
+    from django.urls import path
+    urlpatterns = [
+        path('upload/', staff_member_required(views.UPLOAD),
+             name='simditor_upload'),
+    ]
+elif django.VERSION >= (1, 8):
     # pylint disable=C0103
     urlpatterns = [
         url(r'^upload/', staff_member_required(views.UPLOAD),
