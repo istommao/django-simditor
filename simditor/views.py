@@ -35,7 +35,7 @@ def upload_handler(request):
         'upload', {'fileKey': 'upload'})
     filekey = upload_config.get('fileKey', 'upload')
 
-    uploaded_file = files.get(filekey, 'upload')
+    uploaded_file = files.get(filekey)
 
     backend = image_processing.get_backend()
 
