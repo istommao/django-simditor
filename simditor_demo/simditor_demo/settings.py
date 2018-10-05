@@ -143,7 +143,8 @@ SIMDITOR_CONFIGS = {
     'toolbar': SIMDITOR_TOOLBAR,
     'upload': {
         'url': '/simditor/upload/',
-        'fileKey': 'upload'
+        'fileKey': 'upload',
+        'image_size': 1024 * 1024 * 4     # max image size 4MB
     },
     'emoji': {
         'imagePath': '/static/simditor/images/emoji/'

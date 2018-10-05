@@ -37,6 +37,17 @@ def upload_handler(request):
 
     uploaded_file = files.get(filekey)
 
+    if not uploaded_file:
+        retdata = {'file_path': '', 'success': False,
+                   'msg': '图片上传失败，无法获取到图片对象!'}
+        return JsonResponse(retdata)
+
+    image_size = upload_config.get('image_size')
+    if image_size and uploaded_file.size > image_size:
+        retdata = {'file_path': '', 'success': False,
+                   'msg': '上传失败，已超出图片最大限制!'}
+        return JsonResponse(retdata)
+
     backend = image_processing.get_backend()
 
     if not getattr(settings, 'SIMDITOR_ALLOW_NONIMAGE_FILES', True):
