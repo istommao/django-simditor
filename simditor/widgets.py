@@ -1,13 +1,13 @@
 """simditor widgets."""
 from __future__ import absolute_import
 
+import django
 from django import forms
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.core.serializers.json import DjangoJSONEncoder
 
 from django.template.loader import render_to_string
-from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
 from django.utils.html import conditional_escape
 from django.utils.functional import Promise
@@ -26,6 +26,11 @@ except ImportError:
     # Django <1.7
     from django.forms.util import flatatt        # pylint disable=E0611, E0401
 
+if django.VERSION >= (4, 0):
+    from django.utils.encoding import force_str
+else:
+    from django.utils.encoding import force_text as force_str
+
 
 class LazyEncoder(DjangoJSONEncoder):
     """LazyEncoder."""
@@ -33,7 +38,7 @@ class LazyEncoder(DjangoJSONEncoder):
     # pylint disable=E0202
     def default(self, obj):
         if isinstance(obj, Promise):
-            return force_text(obj)
+            return force_str(obj)
         return super(LazyEncoder, self).default(obj)
 
 
@@ -157,7 +162,7 @@ class SimditorWidget(forms.Textarea):
 
         params = ('simditor/widget.html', {
             'final_attrs': flatatt(final_attrs),
-            'value': conditional_escape(force_text(value)),
+            'value': conditional_escape(force_str(value)),
             'id': final_attrs['id'],
             'config': JSON_ENCODE(self.config)
         })
