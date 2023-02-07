@@ -58,15 +58,19 @@ def upload_handler(request):
                        'msg': '图片格式错误!'}
             return JsonResponse(retdata)
 
-    filename = get_upload_filename(uploaded_file.name)
-    saved_path = default_storage.save(filename, uploaded_file)
+    if hasattr(settings, 'SIMDITOR_UPLOAD_BACKEND') and hasattr(settings.SIMDITOR_UPLOAD_BACKEND, '__call__'):
+        retdata = settings.SIMDITOR_UPLOAD_BACKEND(request, uploaded_file) or {}
 
-    url = utils.get_media_url(saved_path)
+    else:
+        filename = get_upload_filename(uploaded_file.name)
+        saved_path = default_storage.save(filename, uploaded_file)
 
-    is_api = settings.SIMDITOR_CONFIGS.get('is_api', False)
-    url = request.META.get('HTTP_ORIGIN') + url if is_api else url
+        url = utils.get_media_url(saved_path)
 
-    retdata = {'file_path': url, 'success': True, 'msg': '上传成功!'}
+        is_api = settings.SIMDITOR_CONFIGS.get('is_api', False)
+        url = request.META.get('HTTP_ORIGIN') + url if is_api else url
+
+        retdata = {'file_path': url, 'success': True, 'msg': '上传成功!'}
 
     return JsonResponse(retdata)
 
